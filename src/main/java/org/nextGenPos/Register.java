@@ -1,21 +1,20 @@
 package org.nextGenPos;
 
+import lombok.RequiredArgsConstructor;
+
 // Class Register
+@RequiredArgsConstructor
 public class Register {
 
-    private ProductCatalog catalog;
+    private final ProductCatalog productCatalog;
     private Sale sale;
-
-    public Register(ProductCatalog catalog) {
-        this.catalog = catalog;
-    }
 
     public void makeNewSale() {
         sale = new Sale();
     }
 
     public void enterItem(ItemID id, int quantity) {
-        Money price = catalog.getPriceByItemId(id);
+        Money price = productCatalog.getPriceByItemId(id);
         sale.makeLineItem(price, quantity);
     }
 

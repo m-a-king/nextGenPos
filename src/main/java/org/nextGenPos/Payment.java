@@ -1,14 +1,14 @@
 package org.nextGenPos;
 
-// Class Payment
+import lombok.Getter;
+
+@Getter
 public class Payment {
-    private Money amount;
+    private final Money amount;
 
     public Payment(Money cashTendered) {
         amount = cashTendered;
     }
 
-    public Money getAmount() {
-        return amount;
-    }
+
 }

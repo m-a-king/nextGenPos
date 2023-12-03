@@ -2,7 +2,6 @@ package org.nextGenPos;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 // Class ProductSpecification
 @RequiredArgsConstructor

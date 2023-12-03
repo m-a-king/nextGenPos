@@ -1,6 +1,5 @@
 package org.nextGenPos;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

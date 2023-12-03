@@ -6,7 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class Money {
-    private int amount = 0;
+    private int amount;
 
     public Money times(int quantity) {
         this.amount = this.amount * quantity;
