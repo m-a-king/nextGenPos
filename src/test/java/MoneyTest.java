@@ -3,7 +3,7 @@ import org.nextGenPos.Money;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MoneyTest {
+public class MoneyTest {
 
     @Test
     void testAdd() {
