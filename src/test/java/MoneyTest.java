@@ -3,28 +3,29 @@ import org.nextGenPos.Money;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MoneyTest {
-
+class MoneyTest {
     @Test
-    void testAdd() {
+    void testMoneyAdd() {
         Money money1 = new Money(100);
         Money money2 = new Money(200);
-        money1.add(money2);
-        assertEquals(300, money1.getAmount());
+        Money result = money1.add(money2);
+        assertEquals(300, result.getAmount());
     }
 
     @Test
-    void testMinus() {
-        Money total = new Money(500);
-        Money amount = new Money(200);
-        Money result = amount.minus(total);
-        assertEquals(-300, result.getAmount());
+    void testMoneyMinus() {
+        Money money1 = new Money(500);
+        Money money2 = new Money(200);
+        Money result = money1.minus(money2);
+        assertEquals(300, result.getAmount());
     }
 
     @Test
-    void testTimes() {
+    void testMoneyTimes() {
         Money money = new Money(100);
         Money result = money.times(3);
         assertEquals(300, result.getAmount());
     }
+
+
 }

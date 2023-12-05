@@ -6,21 +6,17 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class Money {
-    private int amount;
+    private final int amount;
 
     public Money times(int quantity) {
-        this.amount = this.amount * quantity;
-        return this;
+        return new Money(this.amount * quantity);
     }
 
-
-    public void add(Money subtotal) {
-        this.amount += subtotal.amount;
+    public Money add(Money other) {
+        return new Money(this.amount + other.amount);
     }
 
     public Money minus(Money total) {
-        int result = this.amount - total.amount;
-        return new Money(result);
+        return new Money(this.amount - total.amount);
     }
-
 }

@@ -1,17 +1,25 @@
 import org.junit.jupiter.api.Test;
-import org.nextGenPos.Money;
-import org.nextGenPos.Sale;
+import org.nextGenPos.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SaleTest {
+class SaleTest {
+    @Test
+    void testAddLineItemAndTotal() {
+        Sale sale = new Sale();
+        ProductCatalog catalog = new ProductCatalog();
+        ItemID itemId = new ItemID(1);
+        Money price = new Money(100);
+        catalog.addProductSpecification(itemId, new ProductSpecification(itemId, price, "Test Product"));
+        sale.makeLineItem(price, 2);
+        assertEquals(200, sale.getTotal().getAmount());
+    }
 
     @Test
-    void testSaleTotal() {
+    void testPayment() {
         Sale sale = new Sale();
-        sale.makeLineItem(new Money(100), 2);
-        sale.makeLineItem(new Money(200), 1);
-        Money total = sale.getTotal();
-        assertEquals(400, total.getAmount());
+        Money cashTendered = new Money(500);
+        sale.makePayment(cashTendered);
+        assertEquals(500, sale.getPayment().getAmount().getAmount());
     }
 }

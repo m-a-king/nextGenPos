@@ -1,58 +1,57 @@
-package org.nextGenPos;
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.nextGenPos.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-public class RegisterTest {
-    private Register register;
-    private ProductCatalog productCatalog;
-    private Sale sale;
-
-    @BeforeEach
-    void setUp() {
-        productCatalog = new ProductCatalog(); // 실제 ProductCatalog 사용
-        sale = new Sale(); // 실제 Sale 사용
-        register = new Register(productCatalog);
-    }
-
+class RegisterTest {
     @Test
-    void testMakeNewSale() {
+    void testSaleProcess() {
+        ProductCatalog catalog = new ProductCatalog();
+        Register register = new Register(catalog);
         register.makeNewSale();
-        // Sale 객체가 생성되었는지 확인
-        // ... 검증 코드 작성 ...
+        assertNotNull(register.getSale());
     }
 
     @Test
     void testEnterItem() {
+        ProductCatalog catalog = new ProductCatalog();
         ItemID itemId = new ItemID(1);
-        Money price = new Money(1000);
-        // ProductCatalog에 상품 가격 설정
-        productCatalog.setPrice(itemId, price);
+        Money price = new Money(100);
+        String description = "Test Product";
+        catalog.addProductSpecification(itemId, new ProductSpecification(itemId, price, description));
 
+        Register register = new Register(catalog);
         register.makeNewSale();
         register.enterItem(itemId, 2);
 
-        // Sale 객체에 항목이 추가되었는지 검증
-        // ... 검증 코드 작성 ...
+        Sale currentSale = register.getSale();
+        Money expectedTotal = new Money(200);
+        assertEquals(expectedTotal.getAmount(), currentSale.getTotal().getAmount());
     }
 
     @Test
     void testEndSale() {
+        ProductCatalog catalog = new ProductCatalog();
+        Register register = new Register(catalog);
         register.makeNewSale();
         register.endSale();
 
-        // Sale 객체가 완료 상태인지 검증
-        // ... 검증 코드 작성 ...
+        assertTrue(register.getSale().isComplete());
     }
 
     @Test
     void testMakePayment() {
-        Money cashTendered = new Money(1000);
-        register.makeNewSale();
-        register.makePayment(cashTendered);
+        ProductCatalog catalog = new ProductCatalog();
+        ItemID itemId = new ItemID(1);
+        Money price = new Money(100);
+        catalog.addProductSpecification(itemId, new ProductSpecification(itemId, price, "Test Product"));
 
-        // Payment가 올바르게 처리되었는지 검증
-        // ... 검증 코드 작성 ...
+        Register register = new Register(catalog);
+        register.makeNewSale();
+        register.enterItem(itemId, 2);
+        register.makePayment(new Money(200));
+
+        Sale currentSale = register.getSale();
+        assertEquals(200, currentSale.getPayment().getAmount().getAmount());
     }
 }

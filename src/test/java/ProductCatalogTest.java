@@ -4,38 +4,25 @@ import org.nextGenPos.Money;
 import org.nextGenPos.ProductCatalog;
 import org.nextGenPos.ProductSpecification;
 
-import java.util.HashMap;
-import java.util.Map;
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-public class ProductCatalogTest {
+class ProductCatalogTest {
+    @Test
+    void testAddAndGetPrice() {
+        ProductCatalog catalog = new ProductCatalog();
+        ItemID itemId = new ItemID(1);
+        Money price = new Money(100);
+        catalog.addProductSpecification(itemId, new ProductSpecification(itemId, price, "Test Product"));
+        assertEquals(100, catalog.getPriceByItemId(itemId).getAmount());
+    }
 
     @Test
-    void testGetPriceByItemId() {
-       Map<ItemID, Money> productSpecifications = new HashMap<>();
-
-        // sample data
-        ItemID id1 = new ItemID(1);
-        ItemID id2 = new ItemID(2);
-        ItemID id3 = new ItemID(2);
-
-        Money price1 = new Money(1000);
-        Money price2 = new Money(2000);
-        Money price3 = new Money(3000);
-
-        ProductSpecification productSpecification1 = new ProductSpecification(id1, price1, "product 1");
-        ProductSpecification productSpecification2 = new ProductSpecification(id2, price2, "product 2");
-        ProductSpecification productSpecification3 = new ProductSpecification(id3, price3, "product 3");
-
-        productSpecifications.put(productSpecification1.getItemID(), productSpecification1.getPrice());
-        productSpecifications.put(productSpecification2.getItemID(), productSpecification2.getPrice());
-        productSpecifications.put(productSpecification3.getItemID(), productSpecification3.getPrice());
-
-        ProductCatalog catalog = new ProductCatalog(productSpecifications);
-        Money price = catalog.getPriceByItemId(id1);
-        assertNotNull(price);
-        assertEquals(1000, price.getAmount());
+    void testGetDescription() {
+        ProductCatalog catalog = new ProductCatalog();
+        ItemID itemId = new ItemID(1);
+        Money price = new Money(100);
+        String description = "Test Product";
+        catalog.addProductSpecification(itemId, new ProductSpecification(itemId, price, description));
+        assertEquals(description, catalog.getDescriptionByItemId(itemId));
     }
 }

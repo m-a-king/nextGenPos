@@ -1,9 +1,11 @@
 package org.nextGenPos;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 // Class Register
 @RequiredArgsConstructor
+@Getter
 public class Register {
 
     private final ProductCatalog productCatalog;
