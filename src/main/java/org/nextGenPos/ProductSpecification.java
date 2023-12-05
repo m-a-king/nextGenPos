@@ -12,5 +12,4 @@ public class ProductSpecification {
     private final Money price;
     private final String description;
 
-    // 필요에 따라 추가 메소드 구현
 }
