@@ -40,13 +40,31 @@ class RegisterTest {
     }
 
     @Test
-    void testMakePayment() {
+    void testMakeCashPayment() {
         ProductCatalog catalog = new ProductCatalog();
         ItemID itemId = new ItemID(1);
         Money price = new Money(100);
         catalog.addProductSpecification(itemId, new ProductSpecification(itemId, price, "Test Product"));
 
         Register register = new Register(catalog);
+        register.setPaymentMethod(new CashPayment());
+        register.makeNewSale();
+        register.enterItem(itemId, 2);
+        register.makePayment(new Money(200));
+
+        Sale currentSale = register.getSale();
+        assertEquals(200, currentSale.getPayment().getAmount().getAmount());
+    }
+
+    @Test
+    void testMakeCreditCardPayment() {
+        ProductCatalog catalog = new ProductCatalog();
+        ItemID itemId = new ItemID(1);
+        Money price = new Money(100);
+        catalog.addProductSpecification(itemId, new ProductSpecification(itemId, price, "Test Product"));
+
+        Register register = new Register(catalog);
+        register.setPaymentMethod(new CreditCardPayment());
         register.makeNewSale();
         register.enterItem(itemId, 2);
         register.makePayment(new Money(200));

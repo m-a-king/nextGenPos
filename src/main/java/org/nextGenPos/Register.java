@@ -10,6 +10,11 @@ public class Register {
 
     private final ProductCatalog productCatalog;
     private Sale sale;
+    private PaymentMethod paymentMethod;
+
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
 
     public void makeNewSale() {
         sale = new Sale();
@@ -25,6 +30,9 @@ public class Register {
     }
 
     public void makePayment(Money cashTendered) {
-        sale.makePayment(cashTendered);
+        if (paymentMethod == null) {
+            throw new IllegalStateException("Payment method not set");
+        }
+        sale.makePayment(cashTendered, paymentMethod);
     }
 }

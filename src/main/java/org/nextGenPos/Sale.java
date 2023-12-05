@@ -37,11 +37,11 @@ public class Sale {
         return total;
     }
 
-    public void makePayment(Money cashTendered) {
+    public void makePayment(Money cashTendered, PaymentMethod paymentMethod) {
         Money total = getTotal();
         if(cashTendered.getAmount() < total.getAmount()) {
             throw new IllegalArgumentException("Insufficient amount tendered");
         }
-        payment = new Payment(cashTendered);
+        payment = new Payment(cashTendered, paymentMethod);
     }
 }
