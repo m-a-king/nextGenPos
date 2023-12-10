@@ -20,8 +20,8 @@ class SaleTest {
         ProductCatalog catalog = new ProductCatalog();
         ItemID itemId = new ItemID(1);
         Money price = new Money(100);
-        catalog.addProductSpecification(itemId, new ProductSpecification(itemId, price, "Test Product"));
-        sale.makeLineItem(price, 2);
+        catalog.addProductSpecification(itemId, new ProductSpecification(price, "Test Product"));
+        sale.makeLineItem(itemId, price, 2);
         assertEquals(200, sale.getTotal().getAmount());
     }
 
@@ -34,9 +34,10 @@ class SaleTest {
 
     @Test
     void testGetBalance() {
+        ItemID itemId = new ItemID(1);
         Money price = new Money(100);
         int quantity = 2;
-        sale.makeLineItem(price, quantity);
+        sale.makeLineItem(itemId, price, quantity);
         Money cashTendered = new Money(250);
         sale.makePayment(cashTendered, paymentMethod);
 

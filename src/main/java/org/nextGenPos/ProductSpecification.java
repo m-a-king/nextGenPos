@@ -8,7 +8,6 @@ import lombok.ToString;
 @Getter
 @ToString
 public class ProductSpecification {
-    private final ItemID itemID;
     private final Money price;
     private final String description;
 

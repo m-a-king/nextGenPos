@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 public class Register {
 
     private final ProductCatalog productCatalog;
+    private final Inventory inventory;
     private Sale sale;
     private PaymentMethod paymentMethod;
 
@@ -22,11 +23,7 @@ public class Register {
 
     public void enterItem(ItemID id, int quantity) {
         Money price = productCatalog.getPriceByItemId(id);
-        sale.makeLineItem(price, quantity);
-    }
-
-    public void endSale() {
-        sale.becomeComplete();
+        sale.makeLineItem(id, price, quantity);
     }
 
     public void makePayment(Money cashTendered) {
@@ -35,4 +32,17 @@ public class Register {
         }
         sale.makePayment(cashTendered, paymentMethod);
     }
+
+    public void endSale() {
+        sale.becomeComplete();
+        updateInventory();
+    }
+
+    private void updateInventory() {
+        for (SalesLineItem item : sale.getLineItems()) {
+            inventory.removeStock(item.getItemID(), item.getQuantity());
+        }
+    }
+
+
 }

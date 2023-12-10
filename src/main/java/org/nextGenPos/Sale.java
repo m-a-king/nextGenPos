@@ -25,8 +25,8 @@ public class Sale {
         return isComplete;
     }
 
-    public void makeLineItem(Money price, int quantity) {
-        lineItems.add(new SalesLineItem(quantity, price));
+    public void makeLineItem(ItemID itemID, Money price, int quantity) {
+        lineItems.add(new SalesLineItem(itemID, quantity, price));
     }
 
     public Money getTotal() {

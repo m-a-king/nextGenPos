@@ -12,7 +12,7 @@ class ProductCatalogTest {
         ProductCatalog catalog = new ProductCatalog();
         ItemID itemId = new ItemID(1);
         Money price = new Money(100);
-        catalog.addProductSpecification(itemId, new ProductSpecification(itemId, price, "Test Product"));
+        catalog.addProductSpecification(itemId, new ProductSpecification(price, "Test Product"));
         assertEquals(100, catalog.getPriceByItemId(itemId).getAmount());
     }
 
@@ -22,7 +22,7 @@ class ProductCatalogTest {
         ItemID itemId = new ItemID(1);
         Money price = new Money(100);
         String description = "Test Product";
-        catalog.addProductSpecification(itemId, new ProductSpecification(itemId, price, description));
+        catalog.addProductSpecification(itemId, new ProductSpecification(price, description));
         assertEquals(description, catalog.getDescriptionByItemId(itemId));
     }
 }
