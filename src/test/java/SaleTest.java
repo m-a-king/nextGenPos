@@ -14,6 +14,7 @@ class SaleTest {
     void setUp() {
         sale = new Sale();
         paymentMethod = new CashPayment();
+        store = new Store();
     }
 
     @Test
@@ -49,7 +50,6 @@ class SaleTest {
 
     @Test
     void savePointTest(){
-        Store store = new Store();
         CustomerID customerID = new CustomerID(123);
         store.makeCustomer(customerID);
 
@@ -62,7 +62,6 @@ class SaleTest {
 
     @Test
     void usePointTest(){
-        Store store = new Store();
         CustomerID customerID = new CustomerID(123);
         store.makeCustomer(customerID);
 
