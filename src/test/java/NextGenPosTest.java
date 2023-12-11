@@ -82,7 +82,8 @@ class NextGenPosTest {
         ItemID secondItemID = new ItemID(2);
         Money secondItemPrice = new Money(200);
         int secondItemStockQuantity = 5;
-        productCatalog.addProductSpecification(secondItemID, new ProductSpecification(secondItemPrice, "Second Test Product"));
+        productCatalog.addProductSpecification(secondItemID,
+                new ProductSpecification(secondItemPrice, "Second Test Product"));
         inventory.addStock(secondItemID, secondItemStockQuantity);
 
         // Start a new sale and add multiple items
@@ -104,6 +105,4 @@ class NextGenPosTest {
         Money expectedTotal = testItemPrice.times(1).add(secondItemPrice.times(2));
         assertEquals(expectedTotal.getAmount(), register.getSale().getTotal().getAmount());
     }
-
-
 }
