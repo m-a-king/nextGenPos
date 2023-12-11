@@ -5,23 +5,46 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MoneyTest {
     private Customers customers;
+    private CustomerID customerID;
 
     @BeforeEach
     void setUp() {
         customers = new Customers();
+        customerID = new CustomerID(123);
     }
 
     @Test
     void testAddCustomer() {
-        CustomerID customerID = new CustomerID(1);
         customers.addCustomer(customerID);
         assertEquals(customerID, customers.getPointByCustomerId(customerID));
     }
 
     @Test
     void testGetPointByCustomerId() {
-        CustomerID customerID = new CustomerID(123);
         customers.addCustomer(customerID);
-        assertEquals(123, customers.getPointByCustomerId(customerID).getPoint());
+        assertEquals(0, customers.getPointByCustomerId(customerID).getPoint());
+    }
+
+    @Test
+    void testAddPointByCustomerId() {
+        customers.addCustomer(customerID);
+        
+        Point point = new Point(100);
+        customers.addPointByCustomerId(customerID,point);
+
+        assertEquals(100, customers.getPointByCustomerId(customerID).getPoint());
+    }
+
+    @Test
+    void testMinusPointByCustomerId() {
+        customers.addCustomer(customerID);
+
+        Point point1 = new Point(500);
+        customers.addPointByCustomerId(customerID,point1);
+
+        Point point2 = new Point(300);
+        customers.minusPointByCustomerId(customerID,point2);
+
+        assertEquals(200, customers.getPointByCustomerId(customerID).getPoint());
     }
 }

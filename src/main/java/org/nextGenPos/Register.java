@@ -43,6 +43,4 @@ public class Register {
             inventory.removeStock(item.getItemID(), item.getQuantity());
         }
     }
-
-
 }

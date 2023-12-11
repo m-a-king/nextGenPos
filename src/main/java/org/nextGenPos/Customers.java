@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class Customers {
     private final Map<CustomerID, Point> customers = new HashMap<>();
 
@@ -21,5 +21,26 @@ public class Customers {
             throw new NoSuchElementException("CustomerID " + customerID + " not found in Customers.");
         }
         return point;
+    }
+
+    public void addPointByCustomerId(CustomerID customerID,Point point){
+        Point currentPoint = customers.get(customerID);
+        if (point == null) {
+            throw new NoSuchElementException("CustomerID " + customerID + " not found in Customers.");
+        }
+        customers.replace(customerID,currentPoint.add(point));
+    }
+
+    public void minusPointByCustomerId(CustomerID customerID,Point point){
+        Point currentPoint = customers.get(customerID);
+
+        if (point == null) {
+            throw new NoSuchElementException("CustomerID " + customerID + " not found in Customers.");
+        }
+        if (currentPoint.getPoint() < point.getPoint()) {
+            throw new IllegalArgumentException("Insufficient point for CustomerID " + customerID);
+        } 
+        
+        customers.replace(customerID,currentPoint.minus(point));
     }
 }
