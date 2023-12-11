@@ -105,4 +105,5 @@ class NextGenPosTest {
         Money expectedTotal = testItemPrice.times(1).add(secondItemPrice.times(2));
         assertEquals(expectedTotal.getAmount(), register.getSale().getTotal().getAmount());
     }
+
 }

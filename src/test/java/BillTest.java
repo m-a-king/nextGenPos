@@ -50,13 +50,13 @@ public class BillTest {
     inventory.addStock(testItemID2, initialStockQuantity);
     inventory.addStock(testItemID3, initialStockQuantity);
 
-    outputMessage = new ByteArrayOutputStream(); // OutputStream 생성
+    outputMessage = new ByteArrayOutputStream();
     System.setOut(new PrintStream(outputMessage));
   }
 
   @AfterEach
   void restoresStreams() {
-    System.setOut(System.out); // 원상복귀
+    System.setOut(System.out);
   }
 
   @Test
