@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SaleTest {
 
+    private Store store;
     private Sale sale;
     private PaymentMethod paymentMethod;
 
@@ -13,6 +14,7 @@ class SaleTest {
     void setUp() {
         sale = new Sale();
         paymentMethod = new CashPayment();
+        store=new Store();
     }
 
     @Test
@@ -44,5 +46,29 @@ class SaleTest {
         int expectedBalance = cashTendered.getAmount() - price.getAmount() * quantity;
 
         assertEquals(expectedBalance, sale.getBalance().getAmount());
+    }
+
+    @Test
+    void test savePoint(){
+        CustomerID customerID = new CustomerID(123);
+        store.makeCustomer(customerID);
+        sale.customers=store.getCustomers();
+        
+        sale.customers.addPointByCustomerId(customerID,new Point(500));
+
+        assertEquals(new Point(500), sale.customers.getPointByCustomerId(customerID));
+    }
+
+    @Test
+    void test usePoint(){
+        CustomerID customerID = new CustomerID(123);
+        store.makeCustomer(customerID);
+        sale.customers=store.getCustomers();
+        
+        sale.customers.addPointByCustomerId(customerID,new Point(500));
+
+        sale.customers.minusPointByCustomerId(customerID, new Point(200));
+
+        assertEquals(new Point(300), sale.customers.getPointByCustomerId(customerID));
     }
 }

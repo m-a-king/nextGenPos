@@ -37,9 +37,6 @@ public class Customers {
         if (point == null) {
             throw new NoSuchElementException("CustomerID " + customerID + " not found in Customers.");
         }
-        if (currentPoint.getPoint() < point.getPoint()) {
-            throw new IllegalArgumentException("Insufficient point for CustomerID " + customerID);
-        } 
         
         customers.replace(customerID,currentPoint.minus(point));
     }

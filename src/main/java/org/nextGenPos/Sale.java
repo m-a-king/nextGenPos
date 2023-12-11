@@ -12,6 +12,7 @@ public class Sale {
     private final Date date = new Date();
     private boolean isComplete = false;
     private Payment payment;
+    private Customers customers;
 
     public Money getBalance() {
         return payment.getAmount().minus(getTotal());
@@ -43,5 +44,17 @@ public class Sale {
             throw new IllegalArgumentException("Insufficient amount tendered");
         }
         payment = new Payment(cashTendered, paymentMethod);
+    }
+
+    public void usePoint(CustomerID customerID, Point point){
+        Point currentPoint = customers.get(customerID);
+        if (currentPoint.getPoint() < point.getPoint()) {
+            throw new IllegalArgumentException("Insufficient point for CustomerID " + customerID);
+        } 
+        customers.minusPointByCustomerId(customerID,point);
+    }
+
+    public void savePoint(CustomerID customerID, Point point){
+        customers.addPointByCustomerId(customerID,point);
     }
 }
