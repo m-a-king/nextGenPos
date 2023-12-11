@@ -1,5 +1,8 @@
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.nextGenPos.Customers;
+import org.nextGenPos.CustomerID;
+import org.nextGenPos.Point;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,7 +19,7 @@ class MoneyTest {
     @Test
     void testAddCustomer() {
         customers.addCustomer(customerID);
-        assertEquals(customerID, customers.getPointByCustomerId(customerID));
+        assertNotNull(customers.getPointByCustomerId(customerID));
     }
 
     @Test

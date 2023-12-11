@@ -14,6 +14,10 @@ public class Sale {
     private Payment payment;
     private Customers customers;
 
+    public void setCustomers(Customers customers){
+        this.customers=customers;
+    }
+
     public Money getBalance() {
         return payment.getAmount().minus(getTotal());
     }
@@ -46,15 +50,15 @@ public class Sale {
         payment = new Payment(cashTendered, paymentMethod);
     }
 
+    public void savePoint(CustomerID customerID, Point point){
+        customers.addPointByCustomerId(customerID,point);
+    }
+
     public void usePoint(CustomerID customerID, Point point){
-        Point currentPoint = customers.get(customerID);
+        Point currentPoint = customers.getPointByCustomerId(customerID);
         if (currentPoint.getPoint() < point.getPoint()) {
             throw new IllegalArgumentException("Insufficient point for CustomerID " + customerID);
         } 
         customers.minusPointByCustomerId(customerID,point);
-    }
-
-    public void savePoint(CustomerID customerID, Point point){
-        customers.addPointByCustomerId(customerID,point);
     }
 }

@@ -1,6 +1,6 @@
 package org.nextGenPos;
 
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.HashMap;
 import java.util.Map;

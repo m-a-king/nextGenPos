@@ -14,7 +14,6 @@ class SaleTest {
     void setUp() {
         sale = new Sale();
         paymentMethod = new CashPayment();
-        store=new Store();
     }
 
     @Test
@@ -49,26 +48,30 @@ class SaleTest {
     }
 
     @Test
-    void test savePoint(){
+    void savePointTest(){
+        Store store = new Store();
         CustomerID customerID = new CustomerID(123);
         store.makeCustomer(customerID);
-        sale.customers=store.getCustomers();
-        
-        sale.customers.addPointByCustomerId(customerID,new Point(500));
 
-        assertEquals(new Point(500), sale.customers.getPointByCustomerId(customerID));
+        sale.setCustomers(store.getCustomers());
+        
+        sale.savePoint(customerID,new Point(500));
+
+        assertEquals(500, sale.getCustomers().getPointByCustomerId(customerID).getPoint());
     }
 
     @Test
-    void test usePoint(){
+    void usePointTest(){
+        Store store = new Store();
         CustomerID customerID = new CustomerID(123);
         store.makeCustomer(customerID);
-        sale.customers=store.getCustomers();
+
+        sale.setCustomers(store.getCustomers());
         
-        sale.customers.addPointByCustomerId(customerID,new Point(500));
+        sale.savePoint(customerID,new Point(500));
 
-        sale.customers.minusPointByCustomerId(customerID, new Point(200));
+        sale.usePoint(customerID,new Point(200));
 
-        assertEquals(new Point(300), sale.customers.getPointByCustomerId(customerID));
+        assertEquals(300, sale.getCustomers().getPointByCustomerId(customerID).getPoint());
     }
 }
