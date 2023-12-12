@@ -3,7 +3,7 @@ import org.nextGenPos.Point;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MoneyTest {
+class PointTest {
     @Test
     void testPointAdd() {
         Point point1 = new Point(100);

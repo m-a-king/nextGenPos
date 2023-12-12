@@ -6,7 +6,7 @@ import org.nextGenPos.Point;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MoneyTest {
+class CustomerTest {
     private Customers customers;
     private CustomerID customerID;
 
